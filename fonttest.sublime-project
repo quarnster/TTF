@@ -1,0 +1,25 @@
+{
+    "folders":
+	[
+		{
+			"path": "/Users/quarnster/code/fonttest"
+		}
+	],
+    "build_systems":
+    [
+        {
+            "name": "fonttest",
+            "cmd": ["make"],
+            "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+            "working_dir": "${project_path}/build"
+        }
+    ],
+    "settings":
+    {
+        "sublimeclang_options":
+        [
+            "-I/usr/include/c++/4.2.1/",
+            "-Wno-c++11-extensions"
+        ]
+    }
+}
