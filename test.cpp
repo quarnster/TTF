@@ -32,30 +32,35 @@ void main()                                                     \n\
 ";
 
 
-const char *fragCode ="                                       \n\
+const char *fragCode ="                                        \n\
 varying vec3 tpos;                                              \n\
 void main()                                                     \n\
 {                                                               \n\
-    float alpha = 0.0;\n\
-    if (tpos.z == -1.0) \n\
-    {\n\
-        vec2 p = tpos.xy;                                           \n\
-        // Gradients                                                \n\
-        vec2 px = dFdx(p);                                          \n\
-        vec2 py = dFdy(p);                                          \n\
-        // Chain rule                                               \n\
-        float fx = (2.0*p.x)*px.x - px.y;                           \n\
-        float fy = (2.0*p.x)*py.x - py.y;                           \n\
-        // Signed distance                                          \n\
-        float dist = fx*fx + fy*fy;\n\
-        float sd = (p.x*p.x - p.y)/sqrt(dist);             \n\
-        // Linear alpha                                             \n\
-        alpha = clamp(0.5 - sd, 0.0, 1.0);                                     \n\
-    }\n\
-    else if (tpos.z == 0.0)\n\
-        alpha = 1.0;\n\
-    //alpha = abs(p.x*p.x-p.y); \n\
+    float alpha = 1.0;                                          \n\
+    if (tpos.z != 0.0)                                          \n\
+    {                                                           \n\
+        vec2 p = tpos.xy;                                       \n\
+        // Gradients                                            \n\
+        vec2 px = dFdx(p);                                      \n\
+        vec2 py = dFdy(p);                                      \n\
+        // Chain rule                                           \n\
+        float fx = ((2.0*p.x)*px.x - px.y);                     \n\
+        float fy = ((2.0*p.x)*py.x - py.y);                     \n\
+        // Signed distance                                      \n\
+        float dist = fx*fx + fy*fy;                             \n\
+        float sd = (p.x*p.x - p.y)*-tpos.z/sqrt(dist);          \n\
+        // Linear alpha                                         \n\
+        alpha = clamp(0.5 - sd, 0.0, 1.0);                      \n\
+    }                                                           \n\
     gl_FragColor = alpha * vec4(1.0, 1.0, 1.0, 1.0);            \n\
+/*                                                              \n\
+    if (tpos.z == 1.0)                                          \n\
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);                \n\
+    else if (tpos.z == 0.0)                                     \n\
+        gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);                \n\
+    else                                                        \n\
+        gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);                \n\
+*/                                                              \n\
 }                                                               \n\
 ";
 
@@ -134,7 +139,7 @@ using namespace Utility::TTF;
 int main(int argc, char const *argv[])
 {
     glfwInit();
-    glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 16);
+//    glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 8);
     glfwOpenWindow(640, 480, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
     glViewport(0, 0, 640, 480);
     glewInit();
@@ -159,9 +164,9 @@ int main(int argc, char const *argv[])
     {
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
-        glTranslatef(-8, 0, -10);
-        float scale = 5.0;// + cos(glfwGetTime());
+        float scale = 4.0 + 3*cos(glfwGetTime());
         glScalef(scale, scale, 1);
+        glTranslatef(-8, 0, -10);
 
         for (int i = 0; i < strlen(msg); i++)
         {
