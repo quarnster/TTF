@@ -22,15 +22,19 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
 )
 
-add_executable(
-    fonttest
+add_library(
+    TTF
+    STATIC
     TTF.cpp
 )
+add_executable(fonttest test.cpp)
+
 target_link_libraries(fonttest
     ${OPENGL_LIBRARIES}
     ${Boost_LIBRARIES}
     glfw
     glew
+    TTF
 )
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         find_library(COCOA_LIBRARY Cocoa)
