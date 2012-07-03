@@ -36,23 +36,24 @@ const char *fragCode ="                                       \n\
 varying vec3 tpos;                                              \n\
 void main()                                                     \n\
 {                                                               \n\
-    vec2 p = tpos.xy;                                           \n\
-    // Gradients                                                \n\
-    vec2 px = dFdx(p);                                          \n\
-    vec2 py = dFdy(p);                                          \n\
-    // Chain rule                                               \n\
-    float fx = (2.0*p.x)*px.x - px.y;                           \n\
-    float fy = (2.0*p.x)*py.x - py.y;                           \n\
-    // Signed distance                                          \n\
-    float dist = fx*fx + fy*fy;\n\
-    float alpha;\n\
-    //{\n\
+    float alpha = 0.0;\n\
+    if (tpos.z == -1.0) \n\
+    {\n\
+        vec2 p = tpos.xy;                                           \n\
+        // Gradients                                                \n\
+        vec2 px = dFdx(p);                                          \n\
+        vec2 py = dFdy(p);                                          \n\
+        // Chain rule                                               \n\
+        float fx = (2.0*p.x)*px.x - px.y;                           \n\
+        float fy = (2.0*p.x)*py.x - py.y;                           \n\
+        // Signed distance                                          \n\
+        float dist = fx*fx + fy*fy;\n\
         float sd = (p.x*p.x - p.y)/sqrt(dist);             \n\
         // Linear alpha                                             \n\
         alpha = clamp(0.5 - sd, 0.0, 1.0);                                     \n\
-    //}\n\
-    //if (p.x == 0.0)\n\
-    //    alpha = 1.0;\n\
+    }\n\
+    else if (tpos.z == 0.0)\n\
+        alpha = 1.0;\n\
     //alpha = abs(p.x*p.x-p.y); \n\
     gl_FragColor = alpha * vec4(1.0, 1.0, 1.0, 1.0);            \n\
 }                                                               \n\
