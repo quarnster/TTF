@@ -1,0 +1,31 @@
+
+=== What? ===
+
+This is a work based on http://sourceforge.net/projects/ttftriangulator/ version 1.0 with my own modifications as I see fit for my own use.
+
+The initial git commit is the original source code as written by Ryan Boghean + this readme, and the rest of the modification history can be found in the git commit history.
+
+The source code references http://developer.nvidia.com/node/182, so it makes sense to put a link to that here.
+
+=== Huh? ===
+
+At the point in time I downloaded version 1.0, the license of the code was listed as "zlib/libpng" license. A copy of [[http://www.opensource.org/licenses/Zlib|this license]] was not included in the zip I downloaded so I've taken the liberty to include one here, as well as adding my own name to the copyright list:
+
+{{{
+Copyright (c) 2012 Ryan Boghean
+Additional copyright (c) 2012 Fredrik Ehnbom
+
+This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source distribution.
+}}}
+
+=== Why? ===
+
+There was actually no sample code in version 1.0 of Ryan's work and in at least one spot there was an include statement using a backslash, as well as c11 features being used. So since I needed to make a couple of modifications and write my own code trying the library out, I figured I might as well share this effort publicly.
