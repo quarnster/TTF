@@ -5,7 +5,7 @@ This is a work based on http://sourceforge.net/projects/ttftriangulator/ version
 
 The initial git commit is the original source code as written by Ryan Boghean + this readme, and the rest of the modification history can be found in the git commit history.
 
-The source code references http://developer.nvidia.com/node/182, so it makes sense to put a link to that here.
+See http://http.developer.nvidia.com/GPUGems3/gpugems3_ch25.html and http://research.microsoft.com/en-us/um/people/cloop/loopblinn05.pdf for details.
 
 === Huh? ===
 
